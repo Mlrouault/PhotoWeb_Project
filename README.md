@@ -33,7 +33,12 @@
 9) test at http://localhost:8080/
 
 10) If you experience an error while starting the server try:
+
     npm update
+
     npm cache clean
+
     rm -rf node_modules
+
     npm i
+    

@@ -22,9 +22,9 @@
 
     npm install
 
-7) Run mongodb, type in console
+7) Run mongodb and specify the data directory for the database, type in console
 
-    mongod --dbpath <path to project directory> /PhotoWeb_Project/node_auth/data/db
+    mongod --dbpath ~/node_auth/data/db
 
 8) Start local server, type in console
 

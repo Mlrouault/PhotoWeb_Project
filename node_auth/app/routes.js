@@ -1,3 +1,4 @@
+var User       = require('../app/models/user');
 module.exports = function(app, passport) {
 
 // normal routes ===============================================================
@@ -45,11 +46,83 @@ module.exports = function(app, passport) {
         });
 
         // process the signup form
-        app.post('/signup', passport.authenticate('local-signup', {
-            successRedirect : '/profile', // redirect to the secure profile section
-            failureRedirect : '/signup', // redirect back to the signup page if there is an error
-            failureFlash : true // allow flash messages
-        }));
+        //app.post('/signup', passport.authenticate('local-signup', {
+        //    successRedirect : '/profile', // redirect to the secure profile section
+        //    failureRedirect : '/signup', // redirect back to the signup page if there is an error
+        //    failureFlash : true // allow flash messages
+        //}));
+        app.post('/signup', function(req, res) {
+          email = req.body.email;
+          username = req.body.username;
+          password = req.body.password;
+
+          if (email && username && password) {
+          // if the user is not already logged in:
+            if (!req.user) {
+                email = email.toLowerCase(); // Use lower-case e-mails to avoid case-sensitive e-mail matching
+
+                User.findOne({ 'local.username' :  username }, function(err, user) {
+                    // if there are any errors, return the error
+                    if (err) throw err;
+                        console.log('Error looking up username ');
+                    // check to see if theres already a user with that username
+                    if (user) {
+                        console.log('Username already taken: ' + username);
+                        req.flash('signupMessage', 'That username is already taken.');
+                        res.redirect('/signup');
+                    } else {
+                        var newUser            = new User();
+
+                        newUser.local.email    = email;
+                        newUser.local.username = username;
+                        newUser.local.password = newUser.generateHash(password);
+
+                        newUser.save(function(err) {
+                            if (err) throw err;
+                                console.log('Error Saving User ');
+                        });
+                        req.flash('loginMessage', 'Please sign in with your new account.');
+                        res.redirect('/login');
+                    }
+
+                });
+                // if the user is logged in but has no local account...
+              } else if ( !req.user.local.username ) {
+                    // ...presumably they're trying to connect a local account
+                    // BUT let's check if the username used to connect a local account is being used by another user
+                    User.findOne({ 'local.username' :  username }, function(err, user) {
+                        if (err) throw err;
+                            console.log('Error looking up username ');
+
+                        if (user) {
+                            console.log('Username already taken: ' + username);
+                            req.flash('signupMessage', 'That username is already taken.');
+                            res.redirect('/signup');
+                        } else {
+                            var user = req.user;
+                            user.local.email = email;
+                            user.local.username = username;
+                            user.local.password = user.generateHash(password);
+                            user.save(function(err) {
+                                if (err) throw err;
+                                    console.log('Error Saving User ');
+                            });
+                            req.flash('loginMessage', 'Please sign in with your new account.');
+                            res.redirect('/login');
+                        }
+                    });
+                } else {
+                    // user is logged in and already has a local account. Ignore signup. (You should log out before trying to create a new account, user!)
+                    req.flash('signupMessage', 'You already have a local account and are logged in.');
+                    res.redirect('/signup');
+                }
+            }else {
+              req.flash('signupMessage', 'Username, Email, and Password are all required fields.');
+              res.redirect('/signup');
+            }
+        });
+
+
 
     // facebook -------------------------------
 

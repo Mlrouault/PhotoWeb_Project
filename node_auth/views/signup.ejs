@@ -2,8 +2,7 @@
 <html>
 <head>
     <title>Node Authentication</title>
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+      <link rel="stylesheet" type="text/css" href="signup.css">
     <style>
         body         { padding-top:80px; }
     </style>
@@ -21,30 +20,28 @@
     <!-- LOGIN FORM -->
     <form action="/signup" method="post">
        <div class="form-group">
-           <label>Username</label>
-           <input type="text" class="form-control" name="username">
+           <input type="text" class="form-control" name="username" placeholder="username" id="username">
        </div>
         <div class="form-group">
-            <label>Email</label>
-            <input type="text" class="form-control" name="email">
+            <input type="text" class="form-control" name="email" placeholder="email" id="email">
         </div>
         <div class="form-group">
-            <label>Password</label>
-            <input type="password" class="form-control" name="password">
+            <input type="password" class="form-control" name="password" placeholder="password" id="password">
         </div>
 
         <button type="submit" class="btn btn-warning btn-lg">Signup</button>
     </form>
 
-    <hr>
 
-    <p>Already have an account? <a href="/login">Login</a></p>
-    <p>Or go <a href="/">home</a>.</p>
 
-    <div class="text-center">
-        <p>A demo by <a href="http://scotch.io">Scotch</a>.</p>
-        <p>Visit the <a href="http://scotch.io/tutorials/javascript/easy-node-authentication-setup-and-local">tutorial</a>.</p>
+    <div class="links">
+        <ul>
+          <li class="left_side"><a href="/">home</a></li>
+          <li><a href="/login">login</a></li>
+        </ul>
+
     </div>
+
 
 </div>
 </div>

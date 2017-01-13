@@ -147,6 +147,7 @@ module.exports = function(passport) {
     passport.use(new FacebookStrategy(fbStrategy,
     function(req, token, refreshToken, profile, done) {
 
+    
         // asynchronous
         process.nextTick(function() {
 

@@ -2,11 +2,7 @@
 <html>
 <head>
     <title>Node Authentication</title>
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
-    <style>
-        body         { padding-top:80px; }
-    </style>
+    <link rel="stylesheet" href="/connect-local.css">
 </head>
 <body>
 <div class="container">
@@ -20,25 +16,19 @@
 
     <!-- LOGIN FORM -->
     <form action="/connect/local" method="post">
-        <div class="form-group">
-            <label>Email</label>
-            <input type="text" class="form-control" name="email">
-        </div>
-        <div class="form-group">
-            <label>Password</label>
-            <input type="password" class="form-control" name="password">
-        </div>
+      <div class="form-group">
+          <input type="text" class="form-control" name="email" placeholder="email" id="email">
+      </div>
+      <div class="form-group">
+          <input type="password" class="form-control" name="password" placeholder="password" id="password">
+      </div>
 
         <button type="submit" class="btn btn-warning btn-lg">Add Local</button>
     </form>
-
-    <hr>
-
-    <p><a href="/profile">Go back to profile</a></p>
-
-    <div class="text-center">
-        <p>A demo by <a href="http://scotch.io">Scotch</a>.</p>
-        <p>Visit the <a href="http://scotch.io/tutorials/javascript/easy-node-authentication-setup-and-local">tutorial</a>.</p>
+    <div class="links">
+        <ul>
+          <li><a href="/profile">return to profile</a></li>
+        </ul>
     </div>
 
 </div>
